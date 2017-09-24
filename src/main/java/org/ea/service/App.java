@@ -15,16 +15,19 @@ public class App
     private final static String INPUT_QUEUE_NAME = "myinput";
     private final static String OUTPUT_QUEUE_NAME = "myoutput";
 
+    public static Channel connect() throws Exception {
+      ConnectionFactory factory = new ConnectionFactory();
+      factory.setHost("172.17.0.2");
+      factory.setUsername("guest");
+      factory.setPassword("guest");
+      Connection connection = factory.newConnection();
+      return connection.createChannel();
+    }
+
     public static void main( String[] args ) {
-      Connection connection = null;
       final Channel channel;
       try {
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("172.17.0.2");
-        factory.setUsername("guest");
-        factory.setPassword("guest");
-        connection = factory.newConnection();
-        channel = connection.createChannel();
+        channel = connect();
 
         channel.queueDeclare(INPUT_QUEUE_NAME, false, false, false, null);
         channel.queueDeclare(OUTPUT_QUEUE_NAME, false, false, false, null);
