@@ -1,4 +1,4 @@
-FROM sgrio/java-oracle
+FROM openjdk:8-jdk
 MAINTAINER Daniel Persson (myemail@gmail.com)
 RUN apt-get update
 RUN apt-get install -y maven
